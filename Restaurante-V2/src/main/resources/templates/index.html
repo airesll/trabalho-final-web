@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Inicio</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600"
+	rel="stylesheet">
+<link rel="stylesheet" href="fonts/beyond_the_mountains-webfont.css"
+	type="text/css" />
+
+<!-- Stylesheets -->
+<link href="plugin-frameworks/bootstrap.min.css" rel="stylesheet">
+<link href="plugin-frameworks/swiper.css" rel="stylesheet">
+<link href="fonts/ionicons.css" rel="stylesheet">
+<link href="common/styles.css" rel="stylesheet">
+</head>
+
+<body>
+	<header>
+		<div class="container">
+			<a class="logo" href="#"><img src="images/logo-white.png"
+				alt="Logo"></a>
+
+			<div class="right-area">
+				<h6><a class="plr-20 color-white btn-fill-primary" href="/novoCadastro">Cadastre-se</a></h6>
+			</div>
+			<!-- right-area -->
+
+			<a class="menu-nav-icon" data-menu="#main-menu" href="#"><i
+				class="ion-navicon"></i></a>
+
+			<ul class="main-menu font-mountainsre" id="main-menu">
+				<li><a href="/">HOME</a></li>
+				<li><a href="/cliente/listarPedidos" sec:authorize="hasAnyRole('ROLE_GERENTE','ROLE_CLIENTE')">MEU CARINHO</a></li>
+				<li><a href="/gerente/cadastrarNovoPrato" sec:authorize="hasRole('ROLE_GERENTE')">CADASTRAR PRATO</a></li>
+				<li><a href="/gerente/listaDePratos" sec:authorize="hasRole('ROLE_GERENTE')">LISTA DE PRATOS</a></li>
+				<li><a href="/login">LOGIN</a></li>
+				<li><a href="/logout" sec:authorize="hasAnyRole('ROLE_GERENTE','ROLE_CLIENTE')">LOGOUT</a></li>
+			</ul>
+
+			<div class="clearfix"></div>
+		</div>
+		<!-- container -->
+	</header>
+
+	<section class="bg-1 h-900x main-slider pos-relative">
+		<div class="triangle-up pos-bottom"></div>
+		<div class="container h-100">
+			<div class="dplay-tbl">
+				<div class="dplay-tbl-cell center-text color-white">
+					<h3>O melhor da cidade</h3>
+					<h1 class="mt-30 mb-15">Pizza e Pasta </h1>
+				</div>
+				<!-- dplay-tbl-cell -->
+			</div>
+			<!-- dplay-tbl -->
+		</div>
+		<!-- container -->
+	</section>
+
+
+	<section class="story-area left-text center-sm-text pos-relative">
+		<div class="abs-tbl bg-2 w-20 z--1 dplay-md-none"></div>
+		<div class="abs-tbr bg-3 w-20 z--1 dplay-md-none"></div>
+		<div class="container">
+			<div class="heading">
+				<img class="heading-img" src="images/heading_logo.png" alt="">
+				<h2>Nossa Historia</h2>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<p class="mb-30">Mussum Ipsum, cacilds vidis litro abertis.
+						Suco de cevadiss deixa as pessoas mais interessantis. Diuretics
+						paradis num copo é motivis de denguis. Si u mundo tá muito
+						paradis? Toma um mé que o mundo vai girarzis! Detraxit consequat
+						et quo num tendi nada.</p>
+				</div>
+				<!-- col-md-6 -->
+
+				<div class="col-md-6">
+					<p class="mb-30">Mais vale um bebadis conhecidiss, que um
+						alcoolatra anonimis. Posuere libero varius. Nullam a nisl ut ante
+						blandit hendrerit. Aenean sit amet nisi. Suco de cevadiss deixa as
+						pessoas mais interessantis. Interessantiss quisso pudia ce receita
+						de bolis, mais bolis eu num gostis.</p>
+				</div>
+				<!-- col-md-6 -->
+			</div>
+			<!-- row -->
+		</div>
+		<!-- container -->
+	</section>
+
+
+	<section class="story-area bg-seller color-white pos-relative">
+		<div class="pos-bottom triangle-up"></div>
+		<div class="pos-top triangle-bottom"></div>
+		<div class="container">
+			<div class="heading">
+				<img class="heading-img" src="images/heading_logo.png" alt="">
+				<h2>Menu</h2>
+			</div>
+
+			<!-- AQUI COMEÇA OS PRATOS -->
+			<div class="row" >
+				<div class="col-lg-3 col-md-4  col-sm-6 " th:each="prato : ${listaDePratos}">
+					<div class="center-text mb-30">
+						<div class="ïmg-200x mlr-auto pos-relative">
+							<!--  <img src="images/seller-2-200x200.png" alt="">-->
+							<img alt="" src="" width="200" height="200" th:src="@{'../img/'+${prato.idPrato}+.png}">
+						</div>
+						<h5 class="mt-20" th:text="${prato.nomePrato}"></h5>
+						<h4 class="mt-5">
+							<b>R$</b>
+							<b th:text="${prato.precoPrato}"></b>
+						</h4>
+						<h6 class="mt-20">
+							<a th:href="@{cliente/adicionarPrato/{idPrato}(idPrato = ${prato.idPrato})}">
+								<button type="button" class="btn btn-danger">Adicionar</button>
+							</a>
+						</h6>
+					</div>
+					<!--text-center-->
+				</div>
+				<!-- col-md-3 -->
+			</div>
+			<!-- TERMINA OS PRATOS -->
+		</div>
+		<!-- container -->
+	</section>
+
+	<footer class="pb-50  pt-70 pos-relative footer-bg-1">
+		<div class="container-fluid">
+			<a href="index.html"><img src="images/logo-white.png" alt="Logo"></a>
+
+			<div class="pt-30">
+				<p class="underline-secondary">
+					<b>Endereço:</b>
+				</p>
+				<p>177 Rua Inacio Galdino de Queiroz, Quixadá-Ce</p>
+			</div>
+
+			<div class="pt-30">
+				<p class="underline-secondary mb-10">
+					<b>Contato:</b>
+				</p>
+				<a href="tel:+55 88 99999 0000 ">+55 88 99999 0000</a>
+			</div>
+
+			<div class="pt-30">
+				<p class="underline-secondary mb-10">
+					<b>Email:</b>
+				</p>
+				<a href="luandersondjd@gmail.com"> luandersondjd@gmail.com</a>
+			</div>
+			<p class="color-light font-9 mt-50 mt-sm-30">
+				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				UFC &copy;
+				<script>
+					document.write(new Date().getFullYear());
+				</script>
+				Todos os direitos reservados<i class="fa fa-heart-o"
+					aria-hidden="true"></i> por <a href="https://colorlib.com"
+					target="_blank">Luandeson Evangelista</a>
+				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+			</p>
+		</div>
+		<!-- container -->
+	</footer>
+
+	<!-- SCIPTS -->
+	<script src="plugin-frameworks/jquery-3.2.1.min.js"></script>
+	<script src="plugin-frameworks/bootstrap.min.js"></script>
+	<script src="plugin-frameworks/swiper.js"></script>
+	<script src="common/scripts.js"></script>
+
+</body>
+</html>

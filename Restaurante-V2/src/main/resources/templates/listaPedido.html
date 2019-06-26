@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<title>Lista de Pedidos</title>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600"
+	rel="stylesheet">
+<link rel="stylesheet" href="../fonts/beyond_the_mountains-webfont.css"
+	type="text/css" />
+
+<!-- Stylesheets -->
+<link href="../plugin-frameworks/bootstrap.min.css" rel="stylesheet">
+<link href="../plugin-frameworks/swiper.css" rel="stylesheet">
+<link href="../fonts/ionicons.css" rel="stylesheet">
+<link href="../common/styles.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<div class="container">
+			<a class="logo" href="#"><img src="../images/logo-white.png" alt="Logo"></a>
+			<!-- right-area -->
+
+			<a class="menu-nav-icon" data-menu="#main-menu" href="#"><i
+				class="ion-navicon"></i></a>
+
+			<ul class="main-menu font-mountainsre" id="main-menu">
+				<li><a href="/">HOME</a></li>
+				<li><a href="/cliente/listarPedidos" sec:authorize="hasAnyRole('ROLE_GERENTE','ROLE_CLIENTE')">MEU CARINHO</a></li>
+				<li><a href="/cadastrarNovoPrato" sec:authorize="hasRole('ROLE_GERENTE')">CADASTRAR PRATO</a></li>
+				<li><a href="/gerente/listaDePratos" sec:authorize="hasRole('ROLE_GERENTE')">LISTA DE PRATOS</a></li>
+				<li><a href="/logout" sec:authorize="hasAnyRole('ROLE_GERENTE','ROLE_CLIENTE')">LOGOUT</a></li>
+			</ul>
+
+			<div class="clearfix"></div>
+		</div>
+		<!-- container -->
+	</header>
+	
+	<section class="story-area bg-seller color-white pos-relative">
+		<div class="pos-bottom triangle-up"></div>
+		<div class="pos-top triangle-bottom"></div>
+		<div class="container">
+			<div class="heading">
+				<img class="heading-img" src="../images/heading_logo.png" alt="">
+				<h2>Lista de Pedidoss</h2>
+			</div>			
+			<table class="table table-dark">
+				<thead class="table" >
+					<tr>
+						<th scope="col">Id_Pedido</th>
+						<th scope="col">Data</th>
+						<th scope="col">Valor total R$</th>
+						<th scope="col">Detalhes</th>
+						<th scope="col">Status</th>
+					</tr>
+				</thead>
+				<tbody class="thead-dark" >
+					<tr th:each="pedido : ${listaPedidos}" >
+						<td th:text="${pedido.idPedido}"></td>
+						<td th:text="${pedido.dataPedido}"></td>
+						<td th:text="${pedido.valorTotal}"></td>
+						<td>
+							<a th:href="@{/cliente/listaPratosPedido/{idPedido}(idPedido = ${pedido.idPedido})}">
+							<button type="button" class="btn btn-danger">Ver</button></a>
+						</td>
+						<td th:if="${pedido.statusPedido}==false">Pedido Fechado</td>
+						<td th:if="${pedido.statusPedido}==true">
+							<a th:href="@{/cliente/fecharPedido/{idPedido}(idPedido = ${pedido.idPedido})}">
+							<button type="button" class="btn btn-danger">Fechar Pedido</button></a>
+						</td>
+						
+						<!-- <td th:text="${pedido.statusPedido}"></td> -->
+						<!--<td><img alt="" src="" width="200" height="200" th:src="@{'/images/'+${pessoa.nome}+.png}"></td> -->
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- container -->
+	</section>
+	<footer class="pb-50  pt-70 pos-relative footer-bg-1">
+		<div class="container-fluid">
+			<a href="index.html"><img src="../images/logo-white.png" alt="Logo"></a>
+
+			<div class="pt-30">
+				<p class="underline-secondary">
+					<b>Endereço:</b>
+				</p>
+				<p>177 Rua Inacio Galdino de Queiroz, Quixadá-Ce</p>
+			</div>
+
+			<div class="pt-30">
+				<p class="underline-secondary mb-10">
+					<b>Contato:</b>
+				</p>
+				<a href="tel:+55 88 99999 0000 ">+55 88 99999 0000</a>
+			</div>
+
+			<div class="pt-30">
+				<p class="underline-secondary mb-10">
+					<b>Email:</b>
+				</p>
+				<a href="luandersondjd@gmail.com"> luandersondjd@gmail.com</a>
+			</div>
+			<p class="color-light font-9 mt-50 mt-sm-30">
+				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				UFC &copy;
+				<script>
+					document.write(new Date().getFullYear());
+				</script>
+				Todos os direitos reservados<i class="fa fa-heart-o"
+					aria-hidden="true"></i> por <a href="https://colorlib.com"
+					target="_blank">Luandeson Evangelista</a>
+				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+			</p>
+		</div>
+		<!-- container -->
+	</footer>
+	
+	
+	<script src="../plugin-frameworks/jquery-3.2.1.min.js"></script>
+	<script src="../plugin-frameworks/bootstrap.min.js"></script>
+	<script src="../plugin-frameworks/swiper.js"></script>
+	<script src="../common/scripts.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>oi cliente</title>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+</head>
+<body>
+	<!-- mensagem -->
+	<div class="alert alert-success" role="alert"
+		th:if="${!#strings.isEmpty(mensagem)}">
+		<span th:text="${mensagem}"></span>
+	</div>
+	
+	<!-- menu -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">Restaurante</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active"><a class="nav-link" href="#">Pagina Inicial
+						<span class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Pratos</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Pedidos</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Sair</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Excluir conta</a></li>
+			</ul>
+		</div>
+	</nav>
+	<h1>Seja Bem-Vindo Cliente</h1>
+</body>
+</html>
